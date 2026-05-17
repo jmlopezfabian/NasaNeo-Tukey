@@ -164,16 +164,61 @@ streamlit run app.py
 
 ---
 
-## Flujo de trabajo con Git
+## Flujo de trabajo con Git (Git Flow)
 
-Cada alumno trabaja en su propia rama y abre un Pull Request hacia `develop`:
+El proyecto usa **Git Flow**. Las ramas principales son `main` (producción) y `develop` (integración). Cada sección vive en su propia rama `feature/`.
+
+### 1. Iniciar tu feature
 
 ```bash
-git checkout -b feature/seccion-2-peligrosidad
-# ... commits ...
-git push origin feature/seccion-2-peligrosidad
-# abrir PR → develop
+# Una sola vez por máquina, si no tienes git-flow instalado:
+# macOS: brew install git-flow  |  Ubuntu: sudo apt install git-flow
+
+git flow feature start seccion-2-peligrosidad
+# Equivale a: git checkout -b feature/seccion-2-peligrosidad develop
 ```
+
+### 2. Trabajar y hacer commits
+
+Haz commits **frecuentes, cortos y descriptivos**. Cada commit debe representar un único cambio lógico:
+
+```bash
+# Bien — atómico y claro
+git commit -m "add prueba t de Student para MOID entre grupos"
+git commit -m "add boxplot comparativo peligroso vs no peligroso"
+git commit -m "fix calculo de p-value con varianzas desiguales"
+
+# Mal — vago o demasiado grande
+git commit -m "avances"
+git commit -m "terminar todo"
+```
+
+**Formato recomendado:** `<verbo en infinitivo> <qué> [<dónde o por qué>]`  
+Verbos útiles: `add`, `fix`, `refactor`, `remove`, `update`, `rename`.
+
+### 3. Antes de abrir el Pull Request — sincronizar con `develop`
+
+Antes de pedir revisión, asegúrate de que tu rama tiene los últimos cambios de `develop` para evitar conflictos en el PR:
+
+```bash
+# 1. Actualiza develop local
+git checkout develop
+git pull origin develop
+
+# 2. Regresa a tu rama y fusiona develop
+git checkout feature/seccion-2-peligrosidad
+git merge develop
+
+# 3. Resuelve conflictos si los hay, luego sube tu rama
+git push origin feature/seccion-2-peligrosidad
+```
+
+### 4. Abrir el Pull Request
+
+Abre el PR en GitHub apuntando de `feature/seccion-2-peligrosidad` → `develop`.  
+En la descripción del PR indica qué preguntas responde tu sección y qué gráficas generaste.
+
+---
 
 **Regla de dependencia:** la Sección 0 debe mergearse primero, ya que genera los `.parquet` que consumen las secciones 1–5. Mientras tanto, los alumnos pueden explorar el CSV crudo en sus notebooks.
 
@@ -188,5 +233,5 @@ Nadie edita `app.py`, `src/data_loader.py` ni archivos de otro compañero.
 
 ## Dataset
 
-**Fuente:** [NASA NEO Web Service](https://api.nasa.gov/) — `asteroids_data.csv`  
+**Fuente:** [NASA Near-Earth Asteroids Dataset](https://www.kaggle.com/datasets/lion8beasttmkc/nasa-near-earth-asteroids-dataset) — `asteroids_data.csv`  
 2 000 asteroides cercanos a la Tierra · 39 columnas · ~64 000 eventos de aproximación anidados.
