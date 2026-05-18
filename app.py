@@ -1,13 +1,12 @@
 import streamlit as st
 
 st.set_page_config(
-    page_title="Asteroides NEO — Dashboard",
-    page_icon="☄️",
+    page_title="Inicio — Asteroides NEO",
     layout="wide",
 )
 
-st.title("☄️ Asteroides Cercanos a la Tierra (NEOs)")
-st.caption("NASA Near Earth Object Web Service · 2 000 asteroides · 6 secciones de análisis")
+st.title("Asteroides Cercanos a la Tierra (NEOs)")
+st.caption("NASA Near Earth Object Web Service · 2 000 asteroides · 7 secciones de análisis")
 
 st.markdown(
     """
@@ -29,7 +28,7 @@ secciones = [
             "y otra por evento de aproximación. Base de todas las demás secciones."
         ),
         "responsable": "Jesús",
-        "github": "https://github.com/jesus",
+        "github": "https://github.com/jmlopezfabian",
     },
     {
         "num": "1",
@@ -43,13 +42,13 @@ secciones = [
     },
     {
         "num": "2",
-        "titulo": "¿Qué distingue a un asteroide peligroso?",
+        "titulo": "Qué distingue a un asteroide peligroso",
         "desc": (
             "Comparación de grupos peligroso vs. no peligroso con prueba t y chi-cuadrada. "
-            "¿Son estadísticamente significativas las diferencias?"
+            "Son estadísticamente significativas las diferencias?"
         ),
         "responsable": "Nadia",
-        "github": "https://github.com/usuario2",
+        "github": "https://github.com/nali1090",
     },
     {
         "num": "3",
@@ -59,7 +58,7 @@ secciones = [
             "Efecto del escalado en la convergencia."
         ),
         "responsable": "Roony",
-        "github": "https://github.com/usuario3",
+        "github": "https://github.com/Roony-6",
     },
     {
         "num": "4",
@@ -79,7 +78,7 @@ secciones = [
             "Evolución temporal y relaciones entre variables."
         ),
         "responsable": "Maylin",
-        "github": "https://github.com/usuario5",
+        "github": "https://github.com/MaylinAnzures",
     },
     {
         "num": "6",
