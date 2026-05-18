@@ -99,6 +99,23 @@ Analiza la tabla `approaches_clean` producida por la Sección 0: frecuencia, vel
 
 ---
 
+
+---
+### Sección 6 - Historia del descubrimiento y esfuerzo de seguimiento
+
+**Responsable:** Alumno 6 · [`src/historial.py`](src/historial.py) · [`notebooks/06_historial_descubrimiento.ipynb`](notebooks/06_historial_descubrimiento.ipynb)
+
+Analiza la metadata observacional del catálogo en lugar de las propiedades físicas u orbitales del asteroide. Estudia cuándo se observó cada objeto por primera vez, cómo creció el catálogo de NEOs década a década, cuánto esfuerzo de observación recibió cada asteroide (observations_used, data_arc_days) y si ese esfuerzo se relaciona con el brillo del objeto y con la calidad de su determinación orbital (orbit_uncertainty). Combina una serie temporal de descubrimientos, un análisis multivariado del esfuerzo observacional y un modelo de regresión que explica el número de observaciones a partir de la magnitud.
+
+
+**Habilidades:**  Pandas (parseo de fechas, groupby por década, creación de columnas derivadas como año/década de descubrimiento), EDA, NumPy, regresión lineal (simple o múltiple con statsmodels), correlación de Pearson, Visualización (series de tiempo, scatter, heatmap).
+
+**Preguntas que responde:** ¿Cómo ha crecido el catálogo de NEOs a lo largo del tiempo? ¿Reciben los asteroides más brillantes mayor esfuerzo de observación?
+
+**Gráficas:** Serie de tiempo del número de descubrimientos por década (first_observation_date). Scatter de magnitude vs observations_used con recta de tendencia ajustada. Heatmap de correlación de las variables de observación: observations_used, data_arc_days, orbit_uncertainty y diameter_max_m.
+
+---
+
 ## Estructura del repositorio
 
 ```
