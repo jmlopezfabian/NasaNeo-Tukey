@@ -11,14 +11,19 @@ Analiza el dataset de 2 000 asteroides cercanos a la Tierra (NEOs) publicado por
 |---|---------|-------------|--------|
 | 0 | Limpieza y construcción del dataset base | Gsu | [@Gsu](https://github.com/jmlopezfabian) |
 | 1 | Perfil descriptivo y estructura del catálogo | Alumno 1 | [@usuario1](https://github.com/usuario1) |
-| 2 | ¿Qué distingue a un asteroide potencialmente peligroso? | Alumno 2 | [@usuario2](https://github.com/usuario2) |
-| 3 | Predicción del tamaño a partir del brillo | Alumno 3 | [@usuario3](https://github.com/usuario3) |
-| 4 | Modelo multivariado del riesgo orbital (MOID) | Alumno 4 | [@usuario4](https://github.com/usuario4) |
-| 5 | Anatomía de los encuentros cercanos con la Tierra | Alumno 5 | [@usuario5](https://github.com/usuario5) |
+| 2 | ¿Qué distingue a un asteroide potencialmente peligroso? | Nadia | [@nali1090](https://github.com/nali1090) |
+| 3 | Predicción del tamaño a partir del brillo | Roony | [@Roony-6](https://github.com/Roony-6) |
+| 4 | Modelo multivariado del riesgo orbital (MOID) | Sandy | [@usuario4](https://github.com/usuario4) |
+| 5 | Anatomía de los encuentros cercanos con la Tierra | Maylin | [@MaylinAnzures](https://github.com/MaylinAnzures) |
+| 6 | Historia observacional y sesgo de descubrimiento | Alumno 6 | [@usuario6](https://github.com/usuario6) |
 
 ---
 
 ## Descripción de las secciones
+
+> **Nota:** los apartados de *columnas clave*, *columnas derivadas* y *funciones sugeridas* son un punto de partida orientativo. El análisis final queda a criterio de cada responsable; pueden agregar, quitar o replantear lo que consideren necesario.
+
+---
 
 ### Sección 0 — Limpieza y construcción del dataset base
 **Responsable:** Jesús · [`src/limpieza.py`](src/limpieza.py) · [`notebooks/00_limpieza.ipynb`](notebooks/00_limpieza.ipynb)
@@ -45,10 +50,20 @@ Caracteriza el catálogo en tres niveles: **univariado** (distribuciones de tama
 
 **Gráficas:** histogramas y boxplots de diámetro/magnitud; heatmap de correlación; barras del perfil promedio por clase orbital y por categoría de tamaño.
 
+**Columnas clave:** `magnitude`, `diameter_min_m`, `diameter_max_m`, `orbit_class_type`, `eccentricity`, `semi_major_axis`, `inclination`, `orbital_period`, `min_orbit_intersection`
+
+**Columna derivada sugerida:**
+- `categoria_tamanio` — pequeño / mediano / grande según cuartiles de `diameter_min_m` (`pd.cut`)
+
+**Funciones sugeridas:**
+- `resumen_univariado(df)` → `pd.DataFrame` con estadísticos de tendencia central y dispersión de las variables numéricas clave
+- `correlacion_numerica(df)` → matriz de correlación de Pearson de las variables relevantes
+- `perfil_por_clase(df)` → media de variables clave agrupadas por `orbit_class_type`
+
 ---
 
 ### Sección 2 — ¿Qué distingue a un asteroide "potencialmente peligroso"?
-**Responsable:** Alumno 2 · [`src/peligrosidad.py`](src/peligrosidad.py) · [`notebooks/02_peligrosidad.ipynb`](notebooks/02_peligrosidad.ipynb)
+**Responsable:** Nadia · [`src/peligrosidad.py`](src/peligrosidad.py) · [`notebooks/02_peligrosidad.ipynb`](notebooks/02_peligrosidad.ipynb)
 
 Compara los grupos **peligroso vs. no peligroso** usando inferencia estadística para validar si las diferencias observadas son significativas: prueba t para variables numéricas (MOID, tamaño, velocidad) y chi-cuadrada para la asociación entre clase orbital y peligrosidad.
 
@@ -58,10 +73,17 @@ Compara los grupos **peligroso vs. no peligroso** usando inferencia estadística
 
 **Gráficas:** boxplots comparativos por grupo; barras agrupadas de clase orbital × peligrosidad.
 
+**Columnas clave:** `potentially_hazardous`, `min_orbit_intersection`, `diameter_min_m`, `diameter_max_m`, `magnitude`, `orbit_class_type`
+
+**Funciones sugeridas:**
+- `prueba_t_grupos(df, col)` → `(estadistico, p_valor)` prueba t de Welch entre peligroso y no peligroso para la columna `col`
+- `chi_cuadrada_clase_orbital(df)` → `(chi2, p_valor, tabla_contingencia)` asociación entre `orbit_class_type` y `potentially_hazardous`
+- `resumen_por_grupo(df)` → `pd.DataFrame` con media y mediana de las variables numéricas clave separado por grupo
+
 ---
 
 ### Sección 3 — Predicción del tamaño a partir del brillo
-**Responsable:** Alumno 3 · [`src/regresion_simple.py`](src/regresion_simple.py) · [`notebooks/03_regresion_simple.ipynb`](notebooks/03_regresion_simple.ipynb)
+**Responsable:** Roony · [`src/regresion_simple.py`](src/regresion_simple.py) · [`notebooks/03_regresion_simple.ipynb`](notebooks/03_regresion_simple.ipynb)
 
 Modela la relación log-lineal entre `magnitude` y el diámetro implementando regresión lineal simple por fórmula cerrada (ECM) y comparándola con gradiente descendente, mostrando cómo el escalado de la variable afecta la convergencia.
 
@@ -74,7 +96,7 @@ Modela la relación log-lineal entre `magnitude` y el diámetro implementando re
 ---
 
 ### Sección 4 — Modelo multivariado del riesgo orbital (MOID)
-**Responsable:** Alumno 4 · [`src/modelo_orbital.py`](src/modelo_orbital.py) · [`notebooks/04_modelo_orbital.ipynb`](notebooks/04_modelo_orbital.ipynb)
+**Responsable:** Sandy · [`src/modelo_orbital.py`](src/modelo_orbital.py) · [`notebooks/04_modelo_orbital.ipynb`](notebooks/04_modelo_orbital.ipynb)
 
 Construye un modelo de **regresión múltiple** (OLS con statsmodels) para explicar `min_orbit_intersection` a partir de la geometría orbital, con one-hot encoding de la clase orbital. Evalúa con train/test split y K-Fold; diagnostica residuos y colinealidad.
 
@@ -84,10 +106,21 @@ Construye un modelo de **regresión múltiple** (OLS con statsmodels) para expli
 
 **Gráficas:** gráfica de coeficientes; residuos vs valores ajustados; predicho vs real.
 
+**Columnas clave:** `min_orbit_intersection`, `eccentricity`, `semi_major_axis`, `inclination`, `perihelion_distance`, `aphelion_distance`, `orbital_period`, `orbit_class_type`
+
+**Columna derivada sugerida:**
+- dummies de `orbit_class_type` vía one-hot encoding (`pd.get_dummies`) para incluir la clase orbital como feature numérica
+
+**Funciones sugeridas:**
+- `preparar_features(df)` → `(X, y)` matriz de features con dummies de clase orbital y variables orbitales numéricas
+- `ajustar_ols(X, y)` → modelo `statsmodels` OLS ajustado
+- `kfold_cv(X, y, k)` → `pd.DataFrame` con R² y RMSE por fold
+- `diagnostico_residuos(modelo, X, y)` → gráficas de residuos vs ajustados y QQ-plot
+
 ---
 
 ### Sección 5 — Anatomía de los encuentros cercanos con la Tierra
-**Responsable:** Alumno 5 · [`src/encuentros.py`](src/encuentros.py) · [`notebooks/05_encuentros_cercanos.ipynb`](notebooks/05_encuentros_cercanos.ipynb)
+**Responsable:** Maylin · [`src/encuentros.py`](src/encuentros.py) · [`notebooks/05_encuentros_cercanos.ipynb`](notebooks/05_encuentros_cercanos.ipynb)
 
 Analiza la tabla `approaches_clean` producida por la Sección 0: frecuencia, velocidad relativa y distancia de paso de los encuentros, su evolución temporal (serie de tiempo por década) y la relación entre velocidad y distancia.
 
@@ -96,6 +129,40 @@ Analiza la tabla `approaches_clean` producida por la Sección 0: frecuencia, vel
 **Preguntas que responde:** ¿Qué tan frecuentes y rápidos son los encuentros cercanos? ¿Existe relación entre velocidad relativa y distancia de paso? ¿Cómo se distribuyen a lo largo del tiempo?
 
 **Gráficas:** serie de tiempo de encuentros por década; scatter velocidad vs distancia; heatmap de correlación.
+
+**Columnas clave:** `fecha`, `vel_km_s`, `vel_km_h`, `dist_au`, `dist_km`, `dist_lunar`, `orbiting_body`, `asteroid_name`
+
+**Columna derivada sugerida:**
+- `decada` — año de `fecha` redondeado a la década (`(fecha.dt.year // 10) * 10`) para agrupar la serie de tiempo
+
+**Funciones sugeridas:**
+- `encuentros_por_decada(df)` → `pd.Series` conteo de eventos por década
+- `correlacion_vel_dist(df)` → `pd.DataFrame` matriz de correlación entre `vel_km_s`, `dist_au` y `dist_lunar`
+- `resumen_estadistico(df)` → `pd.DataFrame` con media, mediana y percentiles de velocidad y distancia
+
+---
+
+### Sección 6 — Historia observacional y sesgo de descubrimiento
+**Responsable:** Alumno 6 · [`src/historia_observacional.py`](src/historia_observacional.py) · [`notebooks/06_historia_observacional.ipynb`](notebooks/06_historia_observacional.ipynb)
+
+Analiza no a los asteroides sino al proceso de observarlos: cuándo se descubrieron, cuántas observaciones acumulan, qué tan largo es su arco observacional y cómo ha cambiado el esfuerzo de seguimiento por década. Investiga el sesgo de selección —por qué los objetos descubiertos primero son sistemáticamente más grandes y mejor observados— y valida con una prueba ANOVA si el tamaño promedio difiere de forma significativa entre las décadas de descubrimiento (3+ grupos).
+
+**Habilidades:** Pandas (`groupby`, manejo de fechas, columnas derivadas como `decada_descubrimiento` y `arco_anios`), NumPy, prueba ANOVA (`scipy.stats.f_oneway`), visualización (series de tiempo, barras, boxplots por década).
+
+**Preguntas que responde:** ¿Cómo ha evolucionado el ritmo de descubrimiento de NEOs por década? ¿Difiere significativamente el tamaño promedio según la época de descubrimiento (sesgo de selección)? ¿Están mejor caracterizados los asteroides descubiertos hace más tiempo?
+
+**Gráficas:** serie de tiempo de descubrimientos por década; boxplots de diámetro y de observaciones por década; barras del arco observacional promedio.
+
+**Columnas clave:** `first_observation_date`, `last_observation_date`, `data_arc_days`, `observations_used`, `diameter_min_m`, `diameter_max_m`
+
+**Columnas derivadas sugeridas:**
+- `decada_descubrimiento` — `(first_observation_date.dt.year // 10) * 10`
+- `arco_anios` — `data_arc_days / 365.25`
+
+**Funciones sugeridas:**
+- `descubrimientos_por_decada(df)` → `pd.Series` conteo de asteroides por `decada_descubrimiento`
+- `resumen_por_decada(df)` → `pd.DataFrame` con media y mediana de diámetro, observaciones y arco agrupados por década
+- `anova_diametro_por_decada(df)` → `(estadistico_F, p_valor)` prueba ANOVA de una vía sobre `diameter_min_m` entre décadas
 
 ---
 
@@ -122,7 +189,8 @@ asteroides-dashboard/
 │   ├── peligrosidad.py                 # Sección 2 — Alumno 2
 │   ├── regresion_simple.py             # Sección 3 — Alumno 3
 │   ├── modelo_orbital.py               # Sección 4 — Alumno 4
-│   └── encuentros.py                   # Sección 5 — Alumno 5
+│   ├── encuentros.py                   # Sección 5 — Alumno 5
+│   └── historia_observacional.py       # Sección 6 — Alumno 6
 │
 ├── notebooks/
 │   ├── 00_limpieza.ipynb
@@ -130,7 +198,8 @@ asteroides-dashboard/
 │   ├── 02_peligrosidad.ipynb
 │   ├── 03_regresion_simple.ipynb
 │   ├── 04_modelo_orbital.ipynb
-│   └── 05_encuentros_cercanos.ipynb
+│   ├── 05_encuentros_cercanos.ipynb
+│   └── 06_historia_observacional.ipynb
 │
 ├── app.py                              # página de inicio del dashboard
 └── pages/
@@ -138,7 +207,8 @@ asteroides-dashboard/
     ├── 2_Peligrosidad.py
     ├── 3_Regresion_Simple.py
     ├── 4_Modelo_Orbital.py
-    └── 5_Encuentros_Cercanos.py
+    ├── 5_Encuentros_Cercanos.py
+    └── 6_Historia_Observacional.py
 ```
 
 ---

@@ -48,7 +48,7 @@ secciones = [
             "Comparación de grupos peligroso vs. no peligroso con prueba t y chi-cuadrada. "
             "¿Son estadísticamente significativas las diferencias?"
         ),
-        "responsable": "Alumno 2",
+        "responsable": "Nadia",
         "github": "https://github.com/usuario2",
     },
     {
@@ -58,7 +58,7 @@ secciones = [
             "Regresión lineal simple por fórmula cerrada vs. gradiente descendente. "
             "Efecto del escalado en la convergencia."
         ),
-        "responsable": "Alumno 3",
+        "responsable": "Roony",
         "github": "https://github.com/usuario3",
     },
     {
@@ -68,7 +68,7 @@ secciones = [
             "Regresión OLS con statsmodels, one-hot encoding, K-Fold y diagnóstico "
             "de residuos para explicar la distancia mínima de cruce con la Tierra."
         ),
-        "responsable": "Alumno 4",
+        "responsable": "Sandy",
         "github": "https://github.com/usuario4",
     },
     {
@@ -78,8 +78,18 @@ secciones = [
             "Frecuencia, velocidad y distancia de los ~64 000 eventos de aproximación. "
             "Evolución temporal y relaciones entre variables."
         ),
-        "responsable": "Alumno 5",
+        "responsable": "Maylin",
         "github": "https://github.com/usuario5",
+    },
+    {
+        "num": "6",
+        "titulo": "Historia observacional y sesgo de descubrimiento",
+        "desc": (
+            "Evolución del ritmo de descubrimiento por década, sesgo de selección "
+            "y prueba ANOVA del tamaño promedio entre épocas."
+        ),
+        "responsable": "Alumno 6",
+        "github": "https://github.com/usuario6",
     },
 ]
 
